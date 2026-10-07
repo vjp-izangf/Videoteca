@@ -1,10 +1,10 @@
 # 1. Biblioteca de videojuegos
 # 2. Un Videojuego
-# 3. ID , Título , Categoría , Tamaño , Descripción , Precio , Plataforma
+# 3. ID , Título , Categoría , Tamaño , FechaLanzamiento , Precio , Plataforma
 # 4. En pareja
 # 5. Videoteca
 
-# VideoGameLibrary
+# Videoteca
 
 Videoteca de videojuegos.
 
@@ -20,7 +20,7 @@ Cada videojuego contiene:
 - Título
 - Categoría
 - Tamaño
-- Descripcion
+- FechaLanzamiento
 - Precio
 - Plataforma
 
