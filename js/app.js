@@ -85,3 +85,23 @@ const videojuegos = [
 ];
 console.log(`${nombreAplicacion}: ${videojuegos.length} videojuegos cargados.`);
 console.table(videojuegos);
+
+const LIMITE = 7;
+
+console.log("---Todos los videojuegos---");
+for (const videojuego of videojuegos) {
+    const etiqueta = videojuego.id <= LIMITE ? "Disponible" : "No disponible";
+    console.log(`ID: ${videojuego.id}, Título: ${videojuego.titulo} . ${etiqueta}`);
+}
+
+console.log("---Filtro---");
+let encontrados = 0;
+for (let i=0; i<videojuegos.length; i++) {
+    const videojuego = videojuegos[i];
+    if (videojuego.plataforma === "PC" && videojuego.precio < 50) {
+        console.log(videojuego);
+        encontrados++;
+    }
+}
+
+console.log(`Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`);
