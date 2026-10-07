@@ -105,3 +105,41 @@ for (let i=0; i<videojuegos.length; i++) {
 }
 
 console.log(`Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`);
+
+console.log("---Elementos por categoría---");
+let accion = 0;
+let simuladores = 0;
+let aventura = 0;
+let carreras = 0;
+let deportes = 0;
+let supervivencia = 0;
+
+for (const videojuego of videojuegos) {
+    switch (videojuego.Categoria) {
+        case "Acción":
+            accion++;   
+            break;
+        case "Simuladores":
+            simuladores++;
+            break;
+        case "Aventura":
+            aventura++;
+            break;
+        case "Carreras":
+            carreras++;
+            break;
+        case "Deportes":
+            deportes++;
+            break;
+        case "Supervivencia":
+            supervivencia++;
+            break;
+    }
+}
+
+console.log(`Acción: ${accion}`);
+console.log(`Simuladores: ${simuladores}`);
+console.log(`Aventura: ${aventura}`);
+console.log(`Carreras: ${carreras}`);
+console.log(`Deportes: ${deportes}`);
+console.log(`Supervivencia: ${supervivencia}`);
