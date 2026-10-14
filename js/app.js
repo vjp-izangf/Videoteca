@@ -143,3 +143,54 @@ console.log(`Aventura: ${aventura}`);
 console.log(`Carreras: ${carreras}`);
 console.log(`Deportes: ${deportes}`);
 console.log(`Supervivencia: ${supervivencia}`);
+//Sesion7
+function listarVideojuegos(videojuegos) {
+    for (const videojuego of videojuegos) {
+        console.log(`ID: ${videojuego.id}, Título: ${videojuego.titulo}, Categoría: ${videojuego.Categoria}, Plataforma: ${videojuego.plataforma}, Tamaño: ${videojuego.tamaño}, Precio: ${videojuego.precio}, Fecha de lanzamiento: ${videojuego.fechaLanzamiento}`);
+    }
+}
+
+function filtrarVideojuegosPorPlataforma(videojuegos, plataforma) {
+    let encontrados = 0;
+    for (let i=0; i<videojuegos.length; i++) {
+        const videojuego = videojuegos[i];
+        if (videojuego.plataforma === "PC" && videojuego.precio < 50) {
+        console.log(videojuego);
+        encontrados++;
+        console.log(`Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`);
+    }
+    }
+
+// hacer funcion Categorias
+
+
+//Sesion8
+function buscarPorTexto(videojuegos, texto) {
+    const buscado = texto.toLowerCase();
+    const resultados = [];
+    for (const videojuego of videojuegos) {
+        if (videojuego.titulo.toLowerCase().includes(buscado) || videojuego.Categoria.toLowerCase().includes(buscado)) {
+            resultados.push(videojuego);
+        }
+    }
+    return resultados;
+}
+
+function añadir(videojuegos, videojuego) {
+    id = videojuegos.length + 1;
+    videojuego.id = id;
+    videojuegos.push(videojuego);
+    console.log(`Se ha añadido el videojuego con ID ${id}.`);
+}
+
+function eliminarID(videojuegos, id) {
+    for (let i = 0; i < videojuegos.length; i++) {
+        if (videojuegos[i].id === id) {
+            videojuegos.splice(i, 1);
+            console.log(`Se ha eliminado el videojuego con ID ${id}.`);
+            return;
+        }
+    }
+}
+
+}
