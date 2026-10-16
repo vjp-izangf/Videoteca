@@ -219,11 +219,6 @@ filtrarVideojuegosPorPlataforma(videojuegos, "PC", 40);
 filtrarVideojuegosPorPlataforma(videojuegos, "PlayStation 5",50 );
 contarPorCategoria(videojuegos);
 
-
-
-
-
-
 //Sesion8
 function buscarPorTexto(videojuegos, texto) {
   const buscado = texto.toLowerCase();
@@ -255,3 +250,24 @@ function eliminarID(videojuegos, id) {
     }
   }
 }
+
+function mostrarEstadisticas(videojuegos) {
+  if(videojuegos.length === 0){
+    console.warn("No hay videojuegos");
+    return;
+  }
+  let suma = 0;
+  let maximo = videojuegos[0];
+  for (const videojuego of videojuegos){
+    suma += videojuego.precio;
+    if(videojuego.precio > maximo.precio){
+      maximo = videojuego;
+    }
+  }
+  const media = suma / videojuegos.length;
+  console.log(`Precio medio: ${media.toFixed(1)}`);
+  console.log(`Precio máximo: ${maximo.precio}`);
+}
+
+mostrarEstadisticas(videojuegos);
+mostrarEstadisticas([]);
