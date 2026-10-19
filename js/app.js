@@ -13,7 +13,7 @@ const videojuegos = [
   {
     id: 2,
     titulo: "EA Sports FC 27",
-    Categoria: "Simuladores, deportes",
+    Categoria: "Simuladores, Deportes",
     plataforma: "PC, PlayStation 5, Xbox Series X/S, Nintendo Switch",
     tamaño: "100GB",
     precio: 69.99,
@@ -119,31 +119,29 @@ let deportes = 0;
 let supervivencia = 0;
 
 for (const videojuego of videojuegos) {
-  for (const videojuego of videojuegos) {
-    const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
-    for (const categoria of categorias) {
-      switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
-        case "Acción":
-          accion++;
-          break;
-        case "Simuladores":
-          simuladores++;
-          break;
-        case "Aventura":
-          aventura++;
-          break;
-        case "Carreras":
-          carreras++;
-          break;
-        case "Deportes":
-          deportes++;
-          break;
-        case "Supervivencia":
-          supervivencia++;
-          break;
-        default:
-          console.log("Valores inesperados");
-      }
+  const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
+  for (const categoria of categorias) {
+    switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
+      case "Acción":
+        accion++;
+        break;
+      case "Simuladores":
+        simuladores++;
+        break;
+      case "Aventura":
+        aventura++;
+        break;
+      case "Carreras":
+        carreras++;
+        break;
+      case "Deportes":
+        deportes++;
+        break;
+      case "Supervivencia":
+        supervivencia++;
+        break;
+      default:
+        console.log("Valores inesperados");
     }
   }
 }
@@ -286,3 +284,7 @@ function mostrarEstadisticas(videojuegos) {
 
 mostrarEstadisticas(videojuegos);
 mostrarEstadisticas([]);
+
+//Modificar fecha que sea tipo fecha
+//Añadir texto para dividir por partes el proyecto
+//Modificar index.html para verlo
