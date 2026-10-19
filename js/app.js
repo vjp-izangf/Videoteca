@@ -119,25 +119,32 @@ let deportes = 0;
 let supervivencia = 0;
 
 for (const videojuego of videojuegos) {
-  switch (videojuego.Categoria) {
-    case "Acción":
-      accion++;
-      break;
-    case "Simuladores":
-      simuladores++;
-      break;
-    case "Aventura":
-      aventura++;
-      break;
-    case "Carreras":
-      carreras++;
-      break;
-    case "Deportes":
-      deportes++;
-      break;
-    case "Supervivencia":
-      supervivencia++;
-      break;
+  for (const videojuego of videojuegos) {
+    const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
+    for (const categoria of categorias) {
+      switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
+        case "Acción":
+          accion++;
+          break;
+        case "Simuladores":
+          simuladores++;
+          break;
+        case "Aventura":
+          aventura++;
+          break;
+        case "Carreras":
+          carreras++;
+          break;
+        case "Deportes":
+          deportes++;
+          break;
+        case "Supervivencia":
+          supervivencia++;
+          break;
+        default:
+          console.log("Valores inesperados");
+      }
+    }
   }
 }
 
@@ -147,7 +154,6 @@ console.log(`Aventura: ${aventura}`);
 console.log(`Carreras: ${carreras}`);
 console.log(`Deportes: ${deportes}`);
 console.log(`Supervivencia: ${supervivencia}`);
-
 
 //Sesion7
 function listarVideojuegos(videojuegos) {
@@ -162,12 +168,17 @@ function filtrarVideojuegosPorPlataforma(videojuegos, plataforma, limite) {
   let encontrados = 0;
   for (let i = 0; i < videojuegos.length; i++) {
     const videojuego = videojuegos[i];
-    if (videojuego.plataforma.includes(plataforma) && videojuego.precio < limite) {
+    if (
+      videojuego.plataforma.includes(plataforma) &&
+      videojuego.precio < limite
+    ) {
       console.log(videojuego);
       encontrados++;
     }
   }
-  console.log(`Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`,);
+  console.log(
+    `Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`,
+  );
   return encontrados;
 }
 // hacer funcion Categorias
@@ -181,28 +192,30 @@ function contarPorCategoria(videojuegos) {
   let supervivencia = 0;
 
   for (const videojuego of videojuegos) {
-    switch (videojuego.Categoria) {
+    const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
+    for (const categoria of categorias) {
+      switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
         case "Acción":
-            accion++;
-            break;
+          accion++;
+          break;
         case "Simuladores":
-            simuladores++;
-            break;
+          simuladores++;
+          break;
         case "Aventura":
-            aventura++;
-            break;
+          aventura++;
+          break;
         case "Carreras":
-            carreras++;
-            break;
+          carreras++;
+          break;
         case "Deportes":
-            deportes++;
-            break;
+          deportes++;
+          break;
         case "Supervivencia":
-            supervivencia++;
-            break;
+          supervivencia++;
+          break;
         default:
-            console.log("Valores inesperados");
-
+          console.log("Valores inesperados");
+      }
     }
   }
 
@@ -216,7 +229,7 @@ function contarPorCategoria(videojuegos) {
 
 listarVideojuegos(videojuegos);
 filtrarVideojuegosPorPlataforma(videojuegos, "PC", 40);
-filtrarVideojuegosPorPlataforma(videojuegos, "PlayStation 5",50 );
+filtrarVideojuegosPorPlataforma(videojuegos, "PlayStation 5", 50);
 contarPorCategoria(videojuegos);
 
 //Sesion8
@@ -252,21 +265,23 @@ function eliminarID(videojuegos, id) {
 }
 
 function mostrarEstadisticas(videojuegos) {
-  if(videojuegos.length === 0){
+  if (videojuegos.length === 0) {
     console.warn("No hay videojuegos");
     return;
   }
   let suma = 0;
   let maximo = videojuegos[0];
-  for (const videojuego of videojuegos){
+  for (const videojuego of videojuegos) {
     suma += videojuego.precio;
-    if(videojuego.precio > maximo.precio){
+    if (videojuego.precio > maximo.precio) {
       maximo = videojuego;
     }
   }
   const media = suma / videojuegos.length;
   console.log(`Precio medio: ${media.toFixed(1)}`);
   console.log(`Precio máximo: ${maximo.precio}`);
+  console.log(`Videojuegos: ${videojuegos.length}`);
+  console.log(`Precio total: ${suma}`);
 }
 
 mostrarEstadisticas(videojuegos);
