@@ -8,7 +8,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 4, Xbox One",
     tamaño: "55GB",
     precio: 39.99,
-    fechaLanzamiento: "18 de junio de 2020",
+    fechaLanzamiento: new Date("2020-6-18"),
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 5, Xbox Series X/S, Nintendo Switch",
     tamaño: "100GB",
     precio: 69.99,
-    fechaLanzamiento: "25 de septiembre de 2026",
+    fechaLanzamiento: new Date("2026-09-25"),
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 4, Xbox One",
     tamaño: "45GB",
     precio: 39.99,
-    fechaLanzamiento: "8 de febrero de 2018",
+    fechaLanzamiento: new Date("2018-02-08"),
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const videojuegos = [
     plataforma: "PC",
     tamaño: "85GB",
     precio: 0,
-    fechaLanzamiento: "21 de agosto de 2012",
+    fechaLanzamiento: new Date("2012-08-21"),
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "60GB",
     precio: 49.99,
-    fechaLanzamiento: "10 de junio de 2025",
+    fechaLanzamiento: new Date("2025-6-10"),
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ const videojuegos = [
     plataforma: "PC",
     tamaño: "50GB",
     precio: 79.99,
-    fechaLanzamiento: "19 de noviembre de 2024",
+    fechaLanzamiento: new Date("2024-11-19"),
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 4, Xbox One, Nintendo Switch",
     tamaño: "200MB",
     precio: 9.75,
-    fechaLanzamiento: "16 de mayo de 2011",
+    fechaLanzamiento: new Date("2011-05-16")
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "70GB",
     precio: 49.99,
-    fechaLanzamiento: "22 de abril de 2024",
+    fechaLanzamiento: new Date("2024-04-22"),
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "110GB",
     precio: 59.99,
-    fechaLanzamiento: "9 de noviembre de 2021",
+    fechaLanzamiento: new Date("2021-11-09"),
   },
 ];
 console.log(`${nombreAplicacion}: ${videojuegos.length} videojuegos cargados.`);
