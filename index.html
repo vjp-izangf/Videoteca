@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videoteca</title>
 
-    <script src="js/app.js" defer></script>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body>
 
     <header>
-        <h1>Videoteca</h1>
-        <p>Videoteca de videojuegos</p>
+        <h1 id="titulo">Videoteca</h1>
+        <p id="resumen"></p>
+        <p id="estadisticas"></p>
     </header>
 
-    <main>
+    <main id="listado">
         <section>
             <h2>Lista de videojuegos</h2>
             <div id="lista-videojuegos"></div>
         </section>
     </main>
-
+    <script src="js/app.js" defer></script>
     <footer>
         <p>Videoteca - Videoteca de juegos</p>
     </footer>

@@ -288,3 +288,37 @@ mostrarEstadisticas([]);
 //Modificar fecha que sea tipo fecha
 //Añadir texto para dividir por partes el proyecto
 //Modificar index.html para verlo
+
+
+
+//Pintar nuestro html
+
+const listado = document.querySelector("#listado");
+
+function crearTarjeta(videojuegos){
+  const tarjeta = document.createElement("article");
+  tarjeta.classList.add("tarjeta");
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = videojuegos.titulo;
+
+  const datos = document.createElement("p");
+  datos.textContent = `${videojuegos.plataforma} - ${videojuegos.precio}`;
+
+  tarjeta.append(titulo,datos);
+
+  return tarjeta;
+}
+
+function pintar(videojuegos){
+  listado.replaceChildren();
+
+  for (const videojuego of videojuegos ){
+    listado.append(crearTarjeta(videojuego));
+  }
+}
+
+const resumen = document.querySelector("#resumen");
+resumen.textContent = mostrarEstadisticas(videojuegos);
+
+pintar(videojuegos);
