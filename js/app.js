@@ -285,12 +285,7 @@ function mostrarEstadisticas(videojuegos) {
 mostrarEstadisticas(videojuegos);
 mostrarEstadisticas([]);
 
-//Modificar fecha que sea tipo fecha
-//Añadir texto para dividir por partes el proyecto
-//Modificar index.html para verlo
-
 //Pintar nuestro html
-
 const listado = document.querySelector("#listado");
 
 function crearTarjeta(videojuegos){
@@ -362,4 +357,4 @@ document.querySelector("#ordenNombre")
     actualizar();
   })
 
-
+//Falta hacer estadísticas
