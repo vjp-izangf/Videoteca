@@ -62,7 +62,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 4, Xbox One, Nintendo Switch",
     tamaño: "200MB",
     precio: 9.75,
-    fechaLanzamiento: new Date("2011-05-16")
+    fechaLanzamiento: new Date("2011-05-16"),
   },
   {
     id: 8,
@@ -119,9 +119,11 @@ let deportes = 0;
 let supervivencia = 0;
 
 for (const videojuego of videojuegos) {
-  const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
+  const categorias = videojuego.Categoria.split(","); //"slpit" separa las categorias por comas
   for (const categoria of categorias) {
-    switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
+    switch (
+      categoria.trim() // "trim" eliminia los espacios en blanco
+    ) {
       case "Acción":
         accion++;
         break;
@@ -190,9 +192,11 @@ function contarPorCategoria(videojuegos) {
   let supervivencia = 0;
 
   for (const videojuego of videojuegos) {
-    const categorias = videojuego.Categoria.split(",");  //"slpit" separa las categorias por comas 
+    const categorias = videojuego.Categoria.split(","); //"slpit" separa las categorias por comas
     for (const categoria of categorias) {
-      switch (categoria.trim()) {  // "trim" eliminia los espacios en blanco
+      switch (
+        categoria.trim() // "trim" eliminia los espacios en blanco
+      ) {
         case "Acción":
           accion++;
           break;
@@ -288,7 +292,7 @@ mostrarEstadisticas([]);
 //Pintar nuestro html
 const listado = document.querySelector("#listado");
 
-function crearTarjeta(videojuegos){
+function crearTarjeta(videojuegos) {
   const tarjeta = document.createElement("article");
   tarjeta.classList.add("tarjeta");
 
@@ -298,21 +302,21 @@ function crearTarjeta(videojuegos){
   const datos = document.createElement("p");
   datos.textContent = `${videojuegos.plataforma} - ${videojuegos.precio}`;
 
-  tarjeta.append(titulo,datos);
+  tarjeta.append(titulo, datos);
 
   return tarjeta;
 }
 
-function pintar(videojuegos){
+function pintar(videojuegos) {
   listado.replaceChildren();
 
-  for (const videojuego of videojuegos ){
+  for (const videojuego of videojuegos) {
     listado.append(crearTarjeta(videojuego));
   }
 }
 //Mostrar estadisticas
-const resumen = document.querySelector("#resumen");
-resumen.textContent = mostrarEstadisticas(videojuegos);
+const estadistica = document.querySelector("#estadisticas");
+estadistica.textContent = mostrarEstadisticas(videojuegos);
 
 const totalJuegos = document.querySelector("#total-juegos");
 totalJuegos.textContent = videojuegos.length;
@@ -323,38 +327,46 @@ totalJuegos.textContent = videojuegos.length;
 let textoBuscado = "";
 let criterio = "ninguno";
 
-function ordenar(lista, criterio){
+function ordenar(lista, criterio) {
   const copia = [...lista];
-  if(criterio === "titulo"){
-    copia.sort((a,b) =>
-      a.titulo.localeCompare(b.titulo));
-  } else if (criterio === "precio"){
-    copia.sort((a,b) => a.precio - b.precio);
+  if (criterio === "titulo") {
+    copia.sort((a, b) => a.titulo.localeCompare(b.titulo));
+  } else if (criterio === "precio") {
+    copia.sort((a, b) => a.precio - b.precio);
   }
   return copia;
 }
 
-function actualizar(){
+function actualizar() {
   const encontrados = buscarPorTexto(videojuegos, textoBuscado);
   const ordenadas = ordenar(encontrados, criterio);
-  pintar(ordenadas)
+  pintar(ordenadas);
+   pintarResumen(mostrados);
 }
 
 buscador.addEventListener("input", () => {
   textoBuscado = buscador.value;
   actualizar();
-})
+});
 
-document.querySelector("#ordenPrecio")
-  .addEventListener("click", () => {
-    criterio = "precio";
-    actualizar();
-  })
+document.querySelector("#ordenPrecio").addEventListener("click", () => {
+  criterio = "precio";
+  actualizar();
+});
 
-document.querySelector("#ordenNombre")
-  .addEventListener("click", () => {
-    criterio = "titulo";
-    actualizar();
-  })
+document.querySelector("#ordenNombre").addEventListener("click", () => {
+  criterio = "titulo";
+  actualizar();
+});
 
 //Falta hacer estadísticas
+
+function pintarResumen(mostrados) {
+  const resumen = document.querySelector("#resumen");
+
+  if (mostrados > 0) {
+    resumen.textContent = `Mostrando ${mostrados} de ${videojuegos.length} recetas`;
+  } else {
+    resumen.textContent = `No hay recetas que contengan "${filtro.value}"`;
+  }
+}
