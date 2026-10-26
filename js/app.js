@@ -289,8 +289,6 @@ mostrarEstadisticas([]);
 //Añadir texto para dividir por partes el proyecto
 //Modificar index.html para verlo
 
-
-
 //Pintar nuestro html
 
 const listado = document.querySelector("#listado");
@@ -317,8 +315,51 @@ function pintar(videojuegos){
     listado.append(crearTarjeta(videojuego));
   }
 }
-
+//Mostrar estadisticas
 const resumen = document.querySelector("#resumen");
 resumen.textContent = mostrarEstadisticas(videojuegos);
 
-pintar(videojuegos);
+const totalJuegos = document.querySelector("#total-juegos");
+totalJuegos.textContent = videojuegos.length;
+
+//pintar(videojuegos);
+
+//Estado y Actualizar botones
+let textoBuscado = "";
+let criterio = "ninguno";
+
+function ordenar(lista, criterio){
+  const copia = [...lista];
+  if(criterio === "titulo"){
+    copia.sort((a,b) =>
+      a.titulo.localeCompare(b.titulo));
+  } else if (criterio === "precio"){
+    copia.sort((a,b) => a.precio - b.precio);
+  }
+  return copia;
+}
+
+function actualizar(){
+  const encontrados = buscarPorTexto(videojuegos, textoBuscado);
+  const ordenadas = ordenar(encontrados, criterio);
+  pintar(ordenadas)
+}
+
+buscador.addEventListener("input", () => {
+  textoBuscado = buscador.value;
+  actualizar();
+})
+
+document.querySelector("#ordenPrecio")
+  .addEventListener("click", () => {
+    criterio = "precio";
+    actualizar();
+  })
+
+document.querySelector("#ordenNombre")
+  .addEventListener("click", () => {
+    criterio = "titulo";
+    actualizar();
+  })
+
+

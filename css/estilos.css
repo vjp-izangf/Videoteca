@@ -17,3 +17,20 @@ body {
     border-radius: 8px;
     box-shadow: 0 1px 4px #0003;
 }
+
+
+#menu-videoteca {
+    background-color: #eeeeee;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+#menu-videoteca p {
+    margin: 0;
+    font-weight: bold;
+}
+
+#total-juegos {
+    color: #007bff;
+}
