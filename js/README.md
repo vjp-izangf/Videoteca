@@ -35,6 +35,8 @@ Cada videojuego contiene:
 07/10/2026 --> Estructura inicial
 14/10/2026 --> Sesión 7 y 8
 19/10/2026 --> Sesión 9
+26/10/2026 --> Sesion 10 y 11
+04/11/2026 --> Sesion 12
 
 ## IA
 

@@ -435,5 +435,43 @@ function diasDesde(texto){
   return Math.floor(ms / MS_DIA);
 }
 
+function anadir() {
+    const titulo = document.querySelector("#nuevoTitulo").value;
+    const aviso = document.querySelector("#aviso");
 
-actualizar();
+    // Expresión regular para validar el título
+    const patron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 :\-]+$/;
+
+    if (!patron.test(titulo)) {
+        aviso.textContent = "El título contiene caracteres no permitidos.";
+        return;
+    }
+
+    if (titulo.trim() === "") {
+        aviso.textContent = "El título no puede estar vacío.";
+        return;
+    }
+
+    const nuevoVideojuego = {
+        id: videojuegos.length + 1,
+        titulo: titulo,
+        Categoria: "Otros",
+        plataforma: "PC",
+        tamaño: "Desconocido",
+        precio: 0,
+        fechaLanzamiento: new Date()
+    };
+
+    videojuegos.push(nuevoVideojuego);
+
+    aviso.textContent = "Videojuego añadido correctamente.";
+
+    document.querySelector("#nuevoTitulo").value = "";
+
+    actualizar();
+}
+
+document.querySelector("#anadirVideojuego")
+    .addEventListener("click", anadir);
+
+    actualizar();
