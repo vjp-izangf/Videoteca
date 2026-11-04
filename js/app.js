@@ -341,7 +341,7 @@ function actualizar() {
   const encontrados = buscarPorTexto(videojuegos, textoBuscado);
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
-   pintarResumen(mostrados);
+  pintarResumen(mostrados);
 }
 
 buscador.addEventListener("input", () => {
@@ -370,3 +370,40 @@ function pintarResumen(mostrados) {
     resumen.textContent = `No hay recetas que contengan "${filtro.value}"`;
   }
 }
+
+//Cookies
+
+function guardarCookie(nombre, valor, dias) {
+  const segundos = dias * 24 * 60 * 60;
+  const texto = encodeURIComponent(valor);
+  document.cookie = `${nombre}=${texto}; max-age=${segundos}; path=/`;
+}
+
+
+
+function leerCookie(nombre) {
+  const partes = document.cookie.split("; ");
+  for (const parte of partes) {
+    const [clave, valor] = parte.split("=");
+    if (clave === nombre) {
+      return decodeURIComponent(valor);
+    }
+  }
+  return null;
+}
+
+function elegirOrden(nuevo) {
+  criterio = nuevo;
+  guardarCookie("orden", criterio, 30);
+  actualizar();
+}
+
+document
+  .querySelector("#ordenNombre")
+  .addEventListener("click", () => elegirOrden("nombre"));
+document
+  .querySelector("#ordenPrecio")
+  .addEventListener("click", () => elegirOrden("precio"));
+
+criterio = leerCookie("orden") ?? "ninguno";
+actualizar();
