@@ -34,3 +34,12 @@ body {
 #total-juegos {
     color: #007bff;
 }
+
+.reciente {
+    border-left: 6px solid #f26b3a
+}
+
+.fecha{
+    color: #6b7785;
+    font-size: 0.9rem;
+}

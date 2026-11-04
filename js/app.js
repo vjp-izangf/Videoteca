@@ -1,5 +1,5 @@
 const nombreAplicacion = "Videoteca";
-
+const DIAS_RECIENTES = 1095;
 const videojuegos = [
   {
     id: 1,
@@ -8,7 +8,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 4, Xbox One",
     tamaño: "55GB",
     precio: 39.99,
-    fechaLanzamiento: new Date("2020-6-18"),
+    fechaLanzamiento: "2020-06-18",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 5, Xbox Series X/S, Nintendo Switch",
     tamaño: "100GB",
     precio: 69.99,
-    fechaLanzamiento: new Date("2026-09-25"),
+    fechaLanzamiento: "2026-09-25",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const videojuegos = [
     plataforma: "PC, PlayStation 4, Xbox One",
     tamaño: "45GB",
     precio: 39.99,
-    fechaLanzamiento: new Date("2018-02-08"),
+    fechaLanzamiento: "2018-02-08",
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const videojuegos = [
     plataforma: "PC",
     tamaño: "85GB",
     precio: 0,
-    fechaLanzamiento: new Date("2012-08-21"),
+    fechaLanzamiento: "2012-08-21",
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "60GB",
     precio: 49.99,
-    fechaLanzamiento: new Date("2025-6-10"),
+    fechaLanzamiento: "2025-06-10",
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ const videojuegos = [
     plataforma: "PC",
     tamaño: "50GB",
     precio: 79.99,
-    fechaLanzamiento: new Date("2024-11-19"),
+    fechaLanzamiento: "2024-11-19",
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 4, Xbox One, Nintendo Switch",
     tamaño: "200MB",
     precio: 9.75,
-    fechaLanzamiento: new Date("2011-05-16"),
+    fechaLanzamiento: "2011-05-16",
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "70GB",
     precio: 49.99,
-    fechaLanzamiento: new Date("2024-04-22"),
+    fechaLanzamiento: "2024-04-22",
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ const videojuegos = [
     plataforma: "PC , PlayStation 5, Xbox Series X/S",
     tamaño: "110GB",
     precio: 59.99,
-    fechaLanzamiento: new Date("2021-11-09"),
+    fechaLanzamiento: "2021-11-09",
   },
 ];
 console.log(`${nombreAplicacion}: ${videojuegos.length} videojuegos cargados.`);
@@ -302,7 +302,14 @@ function crearTarjeta(videojuegos) {
   const datos = document.createElement("p");
   datos.textContent = `${videojuegos.plataforma} - ${videojuegos.precio}`;
 
-  tarjeta.append(titulo, datos);
+  const fecha = document.createElement("p");
+  fecha.classList.add("fecha");
+  fecha.textContent = fechaLegible(videojuegos.fechaLanzamiento);
+  if (diasDesde(videojuegos.fechaLanzamiento) <= DIAS_RECIENTES) {
+    tarjeta.classList.add("reciente");
+  }
+
+  tarjeta.append(titulo, datos, fecha);
 
   return tarjeta;
 }
@@ -333,6 +340,9 @@ function ordenar(lista, criterio) {
     copia.sort((a, b) => a.titulo.localeCompare(b.titulo));
   } else if (criterio === "precio") {
     copia.sort((a, b) => a.precio - b.precio);
+  } else if (criterio === "fecha"){
+    copia.sort((a,b) =>
+      crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
   }
   return copia;
 }
@@ -380,7 +390,6 @@ function guardarCookie(nombre, valor, dias) {
 }
 
 
-
 function leerCookie(nombre) {
   const partes = document.cookie.split("; ");
   for (const parte of partes) {
@@ -398,12 +407,33 @@ function elegirOrden(nuevo) {
   actualizar();
 }
 
-document
-  .querySelector("#ordenNombre")
-  .addEventListener("click", () => elegirOrden("nombre"));
-document
-  .querySelector("#ordenPrecio")
+document.querySelector("#ordenNombre")
+  .addEventListener("click", () => elegirOrden("titulo"));
+
+document.querySelector("#ordenPrecio")
   .addEventListener("click", () => elegirOrden("precio"));
 
+document.querySelector("#ordenFecha")
+  .addEventListener("click", () => elegirOrden("fecha"));
+
 criterio = leerCookie("orden") ?? "ninguno";
+actualizar();
+
+//Fechas
+function crearFecha(texto){
+  return new Date(texto + "T00:00");
+}
+
+function fechaLegible(texto){
+  return crearFecha(texto).toLocaleDateString("es-ES",
+    { day: "numeric", month: "long", year: "numeric" });
+}
+
+function diasDesde(texto){
+  const MS_DIA = 24 * 60 * 60 * 1000;
+  const ms = Date.now() - crearFecha(texto).getTime();
+  return Math.floor(ms / MS_DIA);
+}
+
+
 actualizar();
