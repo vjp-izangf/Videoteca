@@ -284,6 +284,8 @@ function mostrarEstadisticas(videojuegos) {
   console.log(`Precio máximo: ${maximo.precio}`);
   console.log(`Videojuegos: ${videojuegos.length}`);
   console.log(`Precio total: ${suma}`);
+  
+  
 }
 
 mostrarEstadisticas(videojuegos);
@@ -325,9 +327,6 @@ function pintar(videojuegos) {
 const estadistica = document.querySelector("#estadisticas");
 estadistica.textContent = mostrarEstadisticas(videojuegos);
 
-const totalJuegos = document.querySelector("#total-juegos");
-totalJuegos.textContent = videojuegos.length;
-
 //pintar(videojuegos);
 
 //Estado y Actualizar botones
@@ -351,7 +350,8 @@ function actualizar() {
   const encontrados = buscarPorTexto(videojuegos, textoBuscado);
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
-  pintarResumen(mostrados);
+  pintarResumen(ordenadas.length);
+  mostrarEstadisticas(videojuegos);
 }
 
 buscador.addEventListener("input", () => {
@@ -375,9 +375,9 @@ function pintarResumen(mostrados) {
   const resumen = document.querySelector("#resumen");
 
   if (mostrados > 0) {
-    resumen.textContent = `Mostrando ${mostrados} de ${videojuegos.length} recetas`;
+    resumen.textContent = `Mostrando ${mostrados} de ${videojuegos.length} Videojuegos`;
   } else {
-    resumen.textContent = `No hay recetas que contengan "${filtro.value}"`;
+    resumen.textContent = `No hay videojuegos que contengan "${textoBuscado}"`;
   }
 }
 
