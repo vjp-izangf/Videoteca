@@ -271,12 +271,14 @@ function mostrarEstadisticas(videojuegos) {
     console.warn("No hay videojuegos");
     return;
   }
+
   let suma = 0;
-  let maximo = videojuegos[0];
+  let maximo = videojuegos[0].precio;
+
   for (const videojuego of videojuegos) {
     suma += videojuego.precio;
-    if (videojuego.precio > maximo.precio) {
-      maximo = videojuego;
+    if (videojuego.precio > maximo) {
+      maximo = videojuego.precio;
     }
   }
   const media = suma / videojuegos.length;
@@ -284,12 +286,31 @@ function mostrarEstadisticas(videojuegos) {
   console.log(`Precio máximo: ${maximo.precio}`);
   console.log(`Videojuegos: ${videojuegos.length}`);
   console.log(`Precio total: ${suma}`);
+
+  return {
+        total: suma,
+        media: suma / videojuegos.length,
+        maximo: maximo
+    };
 }
 
-mostrarEstadisticas(videojuegos);
-mostrarEstadisticas([]);
-
 //Pintar nuestro html
+
+function pintarEstadisticas(videojuegos) {
+    const resultado = mostrarEstadisticas(videojuegos);
+    const elemento = document.querySelector("#estadisticas");
+
+    if (resultado === null) {
+        elemento.textContent = "No hay videojuegos para mostrar estadísticas.";
+        return;
+    }
+
+    elemento.textContent =
+        `Total: ${resultado.total.toFixed(2)}€ | ` +
+        `Media: ${resultado.media.toFixed(2)}€ | ` +
+        `Precio máximo: ${resultado.maximo.toFixed(2)}€`;
+}
+
 const listado = document.querySelector("#listado");
 
 function crearTarjeta(videojuegos) {
@@ -321,9 +342,6 @@ function pintar(videojuegos) {
     listado.append(crearTarjeta(videojuego));
   }
 }
-//Mostrar estadisticas
-const estadistica = document.querySelector("#estadisticas");
-estadistica.textContent = mostrarEstadisticas(videojuegos);
 
 pintar(videojuegos);
 
@@ -349,7 +367,7 @@ function actualizar() {
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
   pintarResumen(ordenadas.length);
-  mostrarEstadisticas(videojuegos);
+  pintarEstadisticas(videojuegos);
 }
 
 buscador.addEventListener("input", () => {

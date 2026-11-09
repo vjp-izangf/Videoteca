@@ -37,6 +37,7 @@ Cada videojuego contiene:
 19/10/2026 --> Sesión 9
 26/10/2026 --> Sesion 10 y 11
 04/11/2026 --> Sesion 12
+09/11/2026 --> Sprint 1
 
 ## IA
 
