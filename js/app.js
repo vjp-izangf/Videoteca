@@ -249,7 +249,7 @@ function buscarPorTexto(videojuegos, texto) {
   return resultados;
 }
 
-function añadir(videojuegos, videojuego) {
+function anadir(videojuegos, videojuego) {
   id = videojuegos.length + 1;
   videojuego.id = id;
   videojuegos.push(videojuego);
@@ -284,8 +284,6 @@ function mostrarEstadisticas(videojuegos) {
   console.log(`Precio máximo: ${maximo.precio}`);
   console.log(`Videojuegos: ${videojuegos.length}`);
   console.log(`Precio total: ${suma}`);
-  
-  
 }
 
 mostrarEstadisticas(videojuegos);
@@ -327,7 +325,7 @@ function pintar(videojuegos) {
 const estadistica = document.querySelector("#estadisticas");
 estadistica.textContent = mostrarEstadisticas(videojuegos);
 
-//pintar(videojuegos);
+pintar(videojuegos);
 
 //Estado y Actualizar botones
 let textoBuscado = "";
@@ -435,43 +433,27 @@ function diasDesde(texto){
   return Math.floor(ms / MS_DIA);
 }
 
-function anadir() {
-    const titulo = document.querySelector("#nuevoTitulo").value;
+    // Expresión regular para validar el título
+    const patron = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]{3,40}$/;
+    const formulario = document.querySelector("#formulario-videojuego");
+    const campoNombre = document.querySelector("#nuevoTitulo");
     const aviso = document.querySelector("#aviso");
 
-    // Expresión regular para validar el título
-    const patron = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 :\-]+$/;
+    formulario.addEventListener("submit", (event) => {
+    event.preventDefault();   // que no recargue la página
+    const nombre = campoNombre.value.trim();
+      if (!patron.test(nombre)) {
+      aviso.textContent = "Entre 3 y 40 letras o espacios.";
+      return;
+      }
+      aviso.textContent = "Se ha añadido correctamente el videojuego";
 
-    if (!patron.test(titulo)) {
-        aviso.textContent = "El título contiene caracteres no permitidos.";
-        return;
-    }
+      const videojuego = {
+        titulo: nombre
+      };
 
-    if (titulo.trim() === "") {
-        aviso.textContent = "El título no puede estar vacío.";
-        return;
-    }
+    anadir(videojuegos, videojuego);
 
-    const nuevoVideojuego = {
-        id: videojuegos.length + 1,
-        titulo: titulo,
-        Categoria: "Otros",
-        plataforma: "PC",
-        tamaño: "Desconocido",
-        precio: 0,
-        fechaLanzamiento: new Date()
-    };
-
-    videojuegos.push(nuevoVideojuego);
-
-    aviso.textContent = "Videojuego añadido correctamente.";
-
-    document.querySelector("#nuevoTitulo").value = "";
-
+    campoNombre.value = ""; //Deja vacío el input para que podamos escribir otro videojuego.
     actualizar();
-}
-
-document.querySelector("#anadirVideojuego")
-    .addEventListener("click", anadir);
-
-    actualizar();
+});
