@@ -374,7 +374,7 @@ buscador.addEventListener("input", () => {
   textoBuscado = buscador.value;
   actualizar();
 });
-
+/*
 document.querySelector("#ordenPrecio").addEventListener("click", () => {
   criterio = "precio";
   actualizar();
@@ -384,7 +384,7 @@ document.querySelector("#ordenNombre").addEventListener("click", () => {
   criterio = "titulo";
   actualizar();
 });
-
+*/
 //Falta hacer estadísticas
 
 function pintarResumen(mostrados) {
