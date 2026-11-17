@@ -88,7 +88,7 @@ export function buscarPorTexto(videojuegos, texto) {
 }
 
 export function anadir(videojuegos, videojuego) {
-  id = videojuegos.length + 1;
+  const id = videojuegos.length + 1;
   videojuego.id = id;
   videojuegos.push(videojuego);
   console.log(`Se ha añadido el videojuego con ID ${id}.`);
