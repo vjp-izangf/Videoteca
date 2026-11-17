@@ -1,9 +1,4 @@
-import{videojuegos} from "./datos.js";
-const nombreAplicacion = "Videoteca";
-const DIAS_RECIENTES = 1095;
-let textoBuscado = "";
-let criterio = "ninguno";
-
+//Sesion7
 export function listarVideojuegos(videojuegos) {
   for (const videojuego of videojuegos) {
     console.log(
@@ -29,7 +24,7 @@ export function filtrarVideojuegosPorPlataforma(videojuegos, plataforma, limite)
   );
   return encontrados;
 }
-
+// hacer funcion Categorias
 export function contarPorCategoria(videojuegos) {
   console.log("---Elementos por categoría---");
   let accion = 0;
@@ -77,6 +72,7 @@ export function contarPorCategoria(videojuegos) {
   console.log(`Supervivencia: ${supervivencia}`);
 }
 
+//Sesion8
 export function buscarPorTexto(videojuegos, texto) {
   const buscado = texto.toLowerCase();
   const resultados = [];
@@ -134,4 +130,33 @@ export function mostrarEstadisticas(videojuegos) {
         media: suma / videojuegos.length,
         maximo: maximo
     };
+}
+
+export function ordenar(lista, criterio) {
+  const copia = [...lista];
+  if (criterio === "titulo") {
+    copia.sort((a, b) => a.titulo.localeCompare(b.titulo));
+  } else if (criterio === "precio") {
+    copia.sort((a, b) => a.precio - b.precio);
+  } else if (criterio === "fecha"){
+    copia.sort((a,b) =>
+      crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
+  }
+  return copia;
+}
+
+//Fechas
+export function crearFecha(texto){
+  return new Date(texto + "T00:00");
+}
+
+export function fechaLegible(texto){
+  return crearFecha(texto).toLocaleDateString("es-ES",
+    { day: "numeric", month: "long", year: "numeric" });
+}
+
+export function diasDesde(texto){
+  const MS_DIA = 24 * 60 * 60 * 1000;
+  const ms = Date.now() - crearFecha(texto).getTime();
+  return Math.floor(ms / MS_DIA);
 }

@@ -1,10 +1,96 @@
-import{videojuegos} from "./datos.js";
-import{listarVideojuegos} from "./logica.js";
-import{filtrarVideojuegosPorPlataforma} from "./logica.js"
+import { videojuegos } from "./datos.js";
+import {
+  listarVideojuegos,
+  filtrarVideojuegosPorPlataforma,
+  contarPorCategoria,
+  buscarPorTexto,
+  anadir,
+  mostrarEstadisticas,
+  ordenar,
+  fechaLegible,
+  diasDesde,
+} from "./logica.js";
 
+const nombreAplicacion = "Videoteca";
+const DIAS_RECIENTES = 1095;
+console.log(`${nombreAplicacion}: ${videojuegos.length} videojuegos cargados.`);
+console.table(videojuegos);
 
-let textoBuscado = "";
-let criterio = "ninguno";
+const LIMITE = 7;
+
+console.log("---Todos los videojuegos---");
+for (const videojuego of videojuegos) {
+  const etiqueta = videojuego.id <= LIMITE ? "Disponible" : "No disponible";
+  console.log(
+    `ID: ${videojuego.id}, Título: ${videojuego.titulo} . ${etiqueta}`,
+  );
+}
+
+console.log("---Filtro---");
+let encontrados = 0;
+for (let i = 0; i < videojuegos.length; i++) {
+  const videojuego = videojuegos[i];
+  if (videojuego.plataforma === "PC" && videojuego.precio < 50) {
+    console.log(videojuego);
+    encontrados++;
+  }
+}
+
+console.log(
+  `Se han encontrado ${encontrados} videojuegos que cumplen los criterios de búsqueda.`,
+);
+
+console.log("---Elementos por categoría---");
+let accion = 0;
+let simuladores = 0;
+let aventura = 0;
+let carreras = 0;
+let deportes = 0;
+let supervivencia = 0;
+
+for (const videojuego of videojuegos) {
+  const categorias = videojuego.Categoria.split(","); //"slpit" separa las categorias por comas
+  for (const categoria of categorias) {
+    switch (
+      categoria.trim() // "trim" eliminia los espacios en blanco
+    ) {
+      case "Acción":
+        accion++;
+        break;
+      case "Simuladores":
+        simuladores++;
+        break;
+      case "Aventura":
+        aventura++;
+        break;
+      case "Carreras":
+        carreras++;
+        break;
+      case "Deportes":
+        deportes++;
+        break;
+      case "Supervivencia":
+        supervivencia++;
+        break;
+      default:
+        console.log("Valores inesperados");
+    }
+  }
+}
+
+console.log(`Acción: ${accion}`);
+console.log(`Simuladores: ${simuladores}`);
+console.log(`Aventura: ${aventura}`);
+console.log(`Carreras: ${carreras}`);
+console.log(`Deportes: ${deportes}`);
+console.log(`Supervivencia: ${supervivencia}`);
+
+listarVideojuegos(videojuegos);
+filtrarVideojuegosPorPlataforma(videojuegos, "PC", 40);
+filtrarVideojuegosPorPlataforma(videojuegos, "PlayStation 5", 50);
+contarPorCategoria(videojuegos);
+
+//Pintar nuestro html
 
 function pintarEstadisticas(videojuegos) {
     const resultado = mostrarEstadisticas(videojuegos);
@@ -54,19 +140,9 @@ function pintar(videojuegos) {
 }
 
 pintar(videojuegos);
-
-function ordenar(lista, criterio) {
-  const copia = [...lista];
-  if (criterio === "titulo") {
-    copia.sort((a, b) => a.titulo.localeCompare(b.titulo));
-  } else if (criterio === "precio") {
-    copia.sort((a, b) => a.precio - b.precio);
-  } else if (criterio === "fecha"){
-    copia.sort((a,b) =>
-      crearFecha(b.fechaLanzamiento) - crearFecha(a.fechaLanzamiento));
-  }
-  return copia;
-}
+//Estado y Actualizar botones
+let textoBuscado = "";
+let criterio = "ninguno";
 
 function actualizar() {
   const encontrados = buscarPorTexto(videojuegos, textoBuscado);
@@ -80,6 +156,18 @@ buscador.addEventListener("input", () => {
   textoBuscado = buscador.value;
   actualizar();
 });
+/*
+document.querySelector("#ordenPrecio").addEventListener("click", () => {
+  criterio = "precio";
+  actualizar();
+});
+
+document.querySelector("#ordenNombre").addEventListener("click", () => {
+  criterio = "titulo";
+  actualizar();
+});
+*/
+//Falta hacer estadísticas
 
 function pintarResumen(mostrados) {
   const resumen = document.querySelector("#resumen");
@@ -129,22 +217,6 @@ document.querySelector("#ordenFecha")
 criterio = leerCookie("orden") ?? "ninguno";
 actualizar();
 
-//Fechas
-function crearFecha(texto){
-  return new Date(texto + "T00:00");
-}
-
-function fechaLegible(texto){
-  return crearFecha(texto).toLocaleDateString("es-ES",
-    { day: "numeric", month: "long", year: "numeric" });
-}
-
-function diasDesde(texto){
-  const MS_DIA = 24 * 60 * 60 * 1000;
-  const ms = Date.now() - crearFecha(texto).getTime();
-  return Math.floor(ms / MS_DIA);
-}
-
     // Expresión regular para validar el título
     const patron = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]{3,40}$/;
     const formulario = document.querySelector("#formulario-videojuego");
@@ -169,4 +241,3 @@ function diasDesde(texto){
     campoNombre.value = ""; //Deja vacío el input para que podamos escribir otro videojuego.
     actualizar();
 });
-
