@@ -43,3 +43,7 @@ body {
     color: #6b7785;
     font-size: 0.9rem;
 }
+
+.tarjeta p {
+    white-space: pre-line;
+}

@@ -124,7 +124,7 @@ function crearTarjeta(videojuegos) {
   titulo.textContent = videojuegos.titulo;
 
   const datos = document.createElement("p");
-  datos.textContent = videojuegos.desc
+  datos.textContent = videojuegos.descripcion();
 
   const fecha = document.createElement("p");
   fecha.classList.add("fecha");
@@ -142,7 +142,8 @@ function pintar(videojuegos) {
   listado.replaceChildren();
 
   for (const videojuego of videojuegos) {
-    listado.append(crearTarjeta(videojuego));
+    const objeto = new Videojuegos(videojuego);
+    listado.append(crearTarjeta(objeto));
   }
 }
 
@@ -156,7 +157,7 @@ function actualizar() {
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
   pintarResumen(ordenadas.length);
-  pintarEstadisticas(datosVideojuegos);
+  pintarEstadisticas(introVideojuegos);
 }
 
 buscador.addEventListener("input", () => {
@@ -243,7 +244,7 @@ actualizar();
         titulo: nombre
       };
 
-    anadir(datosVideojuegos, videojuego);
+    anadir(introVideojuegos, videojuego);
 
     campoNombre.value = ""; //Deja vacío el input para que podamos escribir otro videojuego.
     actualizar();
