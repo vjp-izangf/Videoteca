@@ -1,4 +1,4 @@
-export const videojuegos = [
+export const datosVideojuegos = [
   {
     id: 1,
     titulo: "Detroit: Become Human",

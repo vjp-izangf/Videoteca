@@ -1,4 +1,4 @@
-import { videojuegos } from "./datos.js";
+import { datosVideojuegos } from "./datos.js";
 import {
   listarVideojuegos,
   filtrarVideojuegosPorPlataforma,
@@ -10,16 +10,23 @@ import {
   fechaLegible,
   diasDesde,
 } from "./logica.js";
+import { Videojuegos } from "./videojuegos.js";
+
+
+const introVideojuegos = [];
+for (const datos of datosVideojuegos){
+  introVideojuegos.push(new Videojuegos(datos));
+}
 
 const nombreAplicacion = "Videoteca";
 const DIAS_RECIENTES = 1095;
-console.log(`${nombreAplicacion}: ${videojuegos.length} videojuegos cargados.`);
-console.table(videojuegos);
+console.log(`${nombreAplicacion}: ${datosVideojuegos.length} videojuegos cargados.`);
+console.table(datosVideojuegos);
 
 const LIMITE = 7;
 
 console.log("---Todos los videojuegos---");
-for (const videojuego of videojuegos) {
+for (const videojuego of datosVideojuegos) {
   const etiqueta = videojuego.id <= LIMITE ? "Disponible" : "No disponible";
   console.log(
     `ID: ${videojuego.id}, Título: ${videojuego.titulo} . ${etiqueta}`,
@@ -28,8 +35,8 @@ for (const videojuego of videojuegos) {
 
 console.log("---Filtro---");
 let encontrados = 0;
-for (let i = 0; i < videojuegos.length; i++) {
-  const videojuego = videojuegos[i];
+for (let i = 0; i < datosVideojuegos.length; i++) {
+  const videojuego = datosVideojuegos[i];
   if (videojuego.plataforma === "PC" && videojuego.precio < 50) {
     console.log(videojuego);
     encontrados++;
@@ -48,7 +55,7 @@ let carreras = 0;
 let deportes = 0;
 let supervivencia = 0;
 
-for (const videojuego of videojuegos) {
+for (const videojuego of datosVideojuegos) {
   const categorias = videojuego.Categoria.split(","); //"slpit" separa las categorias por comas
   for (const categoria of categorias) {
     switch (
@@ -85,10 +92,10 @@ console.log(`Carreras: ${carreras}`);
 console.log(`Deportes: ${deportes}`);
 console.log(`Supervivencia: ${supervivencia}`);
 
-listarVideojuegos(videojuegos);
-filtrarVideojuegosPorPlataforma(videojuegos, "PC", 40);
-filtrarVideojuegosPorPlataforma(videojuegos, "PlayStation 5", 50);
-contarPorCategoria(videojuegos);
+listarVideojuegos(datosVideojuegos);
+filtrarVideojuegosPorPlataforma(datosVideojuegos, "PC", 40);
+filtrarVideojuegosPorPlataforma(datosVideojuegos, "PlayStation 5", 50);
+contarPorCategoria(datosVideojuegos);
 
 //Pintar nuestro html
 
@@ -117,7 +124,7 @@ function crearTarjeta(videojuegos) {
   titulo.textContent = videojuegos.titulo;
 
   const datos = document.createElement("p");
-  datos.textContent = `${videojuegos.plataforma} - ${videojuegos.precio}`;
+  datos.textContent = videojuegos.desc
 
   const fecha = document.createElement("p");
   fecha.classList.add("fecha");
@@ -139,17 +146,17 @@ function pintar(videojuegos) {
   }
 }
 
-pintar(videojuegos);
+pintar(datosVideojuegos);
 //Estado y Actualizar botones
 let textoBuscado = "";
 let criterio = "ninguno";
 
 function actualizar() {
-  const encontrados = buscarPorTexto(videojuegos, textoBuscado);
+  const encontrados = buscarPorTexto(datosVideojuegos, textoBuscado);
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
   pintarResumen(ordenadas.length);
-  pintarEstadisticas(videojuegos);
+  pintarEstadisticas(datosVideojuegos);
 }
 
 buscador.addEventListener("input", () => {
@@ -173,7 +180,7 @@ function pintarResumen(mostrados) {
   const resumen = document.querySelector("#resumen");
 
   if (mostrados > 0) {
-    resumen.textContent = `Mostrando ${mostrados} de ${videojuegos.length} Videojuegos`;
+    resumen.textContent = `Mostrando ${mostrados} de ${datosVideojuegos.length} Videojuegos`;
   } else {
     resumen.textContent = `No hay videojuegos que contengan "${textoBuscado}"`;
   }
@@ -236,7 +243,7 @@ actualizar();
         titulo: nombre
       };
 
-    anadir(videojuegos, videojuego);
+    anadir(datosVideojuegos, videojuego);
 
     campoNombre.value = ""; //Deja vacío el input para que podamos escribir otro videojuego.
     actualizar();
