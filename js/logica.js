@@ -2,7 +2,7 @@
 export function listarVideojuegos(videojuegos) {
   for (const videojuego of videojuegos) {
     console.log(
-      `ID: ${videojuego.id}, Título: ${videojuego.titulo}, Categoría: ${videojuego.Categoria}, Plataforma: ${videojuego.plataforma}, Tamaño: ${videojuego.tamaño}, Precio: ${videojuego.precio}, Fecha de lanzamiento: ${videojuego.fechaLanzamiento}`,
+      `ID: ${videojuego.id}, Título: ${videojuego.titulo}, Categoría: ${videojuego.categoria}, Plataforma: ${videojuego.plataforma}, Tamaño: ${videojuego.tamaño}, Precio: ${videojuego.precio}, Fecha de lanzamiento: ${videojuego.fechaLanzamiento}`,
     );
   }
 }
@@ -35,7 +35,7 @@ export function contarPorCategoria(videojuegos) {
   let supervivencia = 0;
 
   for (const videojuego of videojuegos) {
-    const categorias = videojuego.Categoria.split(","); //"slpit" separa las categorias por comas
+    const categorias = videojuego.categoria.split(","); //"slpit" separa las categorias por comas
     for (const categoria of categorias) {
       switch (
         categoria.trim() // "trim" eliminia los espacios en blanco
@@ -79,7 +79,7 @@ export function buscarPorTexto(videojuegos, texto) {
   for (const videojuego of videojuegos) {
     if (
       videojuego.titulo.toLowerCase().includes(buscado) ||
-      videojuego.Categoria.toLowerCase().includes(buscado)
+      videojuego.categoria.toLowerCase().includes(buscado)
     ) {
       resultados.push(videojuego);
     }
@@ -88,7 +88,7 @@ export function buscarPorTexto(videojuegos, texto) {
 }
 
 export function anadir(videojuegos, videojuego) {
-  const id = videojuegos.length + 1;
+  const id = videojuegos.reduce((m, v) => Math.max(m, v.id), 0) + 1;
   videojuego.id = id;
   videojuegos.push(videojuego);
   console.log(`Se ha añadido el videojuego con ID ${id}.`);
@@ -121,7 +121,7 @@ export function mostrarEstadisticas(videojuegos) {
   }
   const media = suma / videojuegos.length;
   console.log(`Precio medio: ${media.toFixed(1)}`);
-  console.log(`Precio máximo: ${maximo.precio}`);
+  console.log(`Precio máximo: ${maximo}`);
   console.log(`Videojuegos: ${videojuegos.length}`);
   console.log(`Precio total: ${suma}`);
 

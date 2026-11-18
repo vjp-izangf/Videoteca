@@ -20,8 +20,8 @@ for (const datos of datosVideojuegos){
 
 const nombreAplicacion = "Videoteca";
 const DIAS_RECIENTES = 1095;
-console.log(`${nombreAplicacion}: ${datosVideojuegos.length} videojuegos cargados.`);
-console.table(datosVideojuegos);
+console.log(`${nombreAplicacion}: ${introVideojuegos.length} videojuegos cargados.`);
+console.table(introVideojuegos);
 
 const LIMITE = 7;
 
@@ -92,10 +92,10 @@ console.log(`Carreras: ${carreras}`);
 console.log(`Deportes: ${deportes}`);
 console.log(`Supervivencia: ${supervivencia}`);
 
-listarVideojuegos(datosVideojuegos);
-filtrarVideojuegosPorPlataforma(datosVideojuegos, "PC", 40);
-filtrarVideojuegosPorPlataforma(datosVideojuegos, "PlayStation 5", 50);
-contarPorCategoria(datosVideojuegos);
+listarVideojuegos(introVideojuegos);
+filtrarVideojuegosPorPlataforma(introVideojuegos, "PC", 40);
+filtrarVideojuegosPorPlataforma(introVideojuegos, "PlayStation 5", 50);
+contarPorCategoria(introVideojuegos);
 
 //Pintar nuestro html
 
@@ -115,26 +115,26 @@ function pintarEstadisticas(videojuegos) {
 }
 
 const listado = document.querySelector("#listado");
+const buscador = document.querySelector("#buscador");
 
-function crearTarjeta(videojuegos) {
+function crearTarjeta(videojuego) {
   const tarjeta = document.createElement("article");
   tarjeta.classList.add("tarjeta");
 
   const titulo = document.createElement("h3");
-  titulo.textContent = videojuegos.titulo;
+  titulo.textContent = videojuego.titulo;
 
   const datos = document.createElement("p");
-  datos.textContent = videojuegos.descripcion();
+  datos.textContent = videojuego.descripcion();
 
   const fecha = document.createElement("p");
   fecha.classList.add("fecha");
-  fecha.textContent = fechaLegible(videojuegos.fechaLanzamiento);
-  if (diasDesde(videojuegos.fechaLanzamiento) <= DIAS_RECIENTES) {
+  fecha.textContent = fechaLegible(videojuego.fechaLanzamiento);
+  if (diasDesde(videojuego.fechaLanzamiento) <= DIAS_RECIENTES) {
     tarjeta.classList.add("reciente");
   }
 
   tarjeta.append(titulo, datos, fecha);
-
   return tarjeta;
 }
 
@@ -153,7 +153,7 @@ let textoBuscado = "";
 let criterio = "ninguno";
 
 function actualizar() {
-  const encontrados = buscarPorTexto(datosVideojuegos, textoBuscado);
+  const encontrados = buscarPorTexto(introVideojuegos, textoBuscado);
   const ordenadas = ordenar(encontrados, criterio);
   pintar(ordenadas);
   pintarResumen(ordenadas.length);
@@ -164,24 +164,12 @@ buscador.addEventListener("input", () => {
   textoBuscado = buscador.value;
   actualizar();
 });
-/*
-document.querySelector("#ordenPrecio").addEventListener("click", () => {
-  criterio = "precio";
-  actualizar();
-});
-
-document.querySelector("#ordenNombre").addEventListener("click", () => {
-  criterio = "titulo";
-  actualizar();
-});
-*/
-//Falta hacer estadísticas
 
 function pintarResumen(mostrados) {
   const resumen = document.querySelector("#resumen");
 
   if (mostrados > 0) {
-    resumen.textContent = `Mostrando ${mostrados} de ${datosVideojuegos.length} Videojuegos`;
+    resumen.textContent = `Mostrando ${mostrados} de ${introVideojuegos.length} Videojuegos`;
   } else {
     resumen.textContent = `No hay videojuegos que contengan "${textoBuscado}"`;
   }
@@ -240,9 +228,14 @@ actualizar();
       }
       aviso.textContent = "Se ha añadido correctamente el videojuego";
 
-      const videojuego = {
-        titulo: nombre
-      };
+    const videojuego = new Videojuegos({
+      titulo: nombre,
+      Categoria: "Sin categoría",
+      plataforma: "PC",
+      tamaño: "Sin datos",
+      precio: 0,
+      fechaLanzamiento: new Date().toISOString().slice(0, 10),
+    });
 
     anadir(introVideojuegos, videojuego);
 
